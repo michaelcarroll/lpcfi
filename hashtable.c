@@ -21,7 +21,7 @@ hashtable ht_init(size_t size) {
         hashtable ht = malloc(sizeof(struct hashtable));
         if (ht == NULL) return NULL;
 
-        ht->table = malloc(sizeof(struct hashnode *) * size);
+        ht->table = calloc(size, sizeof(struct hashnode *));
         if (ht->table == NULL) {
                 free(ht);
                 return NULL;
