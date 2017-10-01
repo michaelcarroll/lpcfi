@@ -12,8 +12,8 @@ struct hashnode {
 };
 
 struct hashtable {
-        size_t max_size;  /** Number of keys the table can take. */
-        size_t n_keys;    /** Number of keys currently in the table. */
+        size_t max_size;  /** Number of slots in the table. */
+        // size_t n_keys;    /** Number of keys currently in the table. */
         struct hashnode **table;  /** Array of hashnodes. */
 };
 
@@ -21,6 +21,7 @@ hashtable ht_init(size_t size) {
         hashtable ht = malloc(sizeof(struct hashtable));
         if (ht == NULL) return NULL;
 
+        ht->max_size = size;
         ht->table = calloc(size, sizeof(struct hashnode *));
         if (ht->table == NULL) {
                 free(ht);
