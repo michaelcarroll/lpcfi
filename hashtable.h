@@ -2,6 +2,9 @@
  *                pointer values.
  */
 
+#ifndef HASHTABLE_H
+#define HASHTABLE_H
+
 typedef struct hashtable *hashtable;
 
 /** Returns a malloc'd hash table with an initial size of size. */
@@ -18,3 +21,6 @@ int ht_lookup(hashtable ht, char *key, char **val);
 
 /** Sets key to val in ht. */
 void ht_set(hashtable ht, char *key, char *val);
+
+#endif  /* HASHTABLE_H */
+
