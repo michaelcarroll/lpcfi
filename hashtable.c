@@ -1,6 +1,7 @@
 /** hashtable.c - implementation of interface in hashtable.h. */
 
 #include <stdlib.h>
+#include <stdbool.h>
 
 #include "hashtable.h"
 
@@ -35,9 +36,29 @@ void ht_destroy(hashtable ht) {
         free(ht);
 }
 
-int ht_lookup(hashtable ht, char **key, char **val) {
+static size_t hash(char **key, size_t size) {
+        /* Don't need a good hash for this prototype. */
+        return (size_t)key % size;
+}
 
-        return 0;
+int ht_lookup(hashtable ht, char **key, char **val) {
+        size_t index = 0;
+        struct hashnode *curr = NULL;
+
+        if (ht == NULL) return 0;
+        if (ht->table == NULL) return 0;
+
+        index = hash(key, ht->max_size);
+        for (curr = ht->table[index]; curr != NULL; curr = curr->next) {
+                if (curr->key == key) {
+                        /* There's a match. */
+                        *val = curr->val;
+                        return true;
+                }
+        }
+
+        /* Couldn't find a match. */
+        return false;
 }
 
 void ht_set(hashtable ht, char **key, char *val) {
