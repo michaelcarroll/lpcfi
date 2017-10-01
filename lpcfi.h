@@ -24,6 +24,9 @@ void lpcfi_set_const(char **ptr, char *val);
  */
 void lpcfi_set_dyn(char **ptr, char **deref_ptr);
 
+/** Removes ptr from the safe memory table. */
+void lpcfi_remove(char **ptr);
+
 /** Check that ptr is set to the value saved in safe memory. Returns
  *  so, otherwise crashes.
  */

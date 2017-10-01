@@ -55,6 +55,10 @@ void lpcfi_set_dyn(char **ptr, char **deref_ptr) {
         ht_set(table, ptr, deref_val);
 }
 
+void lpcfi_remove(char **ptr) {
+        ht_remove(table, ptr);
+}
+
 void lpcfi_check_ptr(char **ptr) {
         char *val = NULL;
         int ret = 0;
