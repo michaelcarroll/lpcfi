@@ -2,6 +2,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdarg.h>
 
 #include "hashtable.h"
 
@@ -69,7 +70,19 @@ void lpcfi_check_ptr(char **ptr) {
         /* Otherwise it's all good. */
 }
 
-void lpcfi_within(char **ptr, unsigned int n_ptrs, ...) {
+void lpcfi_within(char *ptr, unsigned int n_ptrs, ...) {
+        va_list ptrs;
 
+        va_start(ptrs, n_ptrs);
+        for (size_t i = 0; i < n_ptrs; ++i) {
+                if (ptr == va_arg(ptrs, char *)) {
+                        va_end(ptrs);
+                        return;
+                }
+        }
+
+        va_end(ptrs);
+        printf("lpcfi_within: {%p} (value) not in specified set\n", ptr);
+        crash(4);
 }
 

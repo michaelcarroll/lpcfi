@@ -26,14 +26,14 @@ void lpcfi_set_dyn(char **ptr, char **deref_ptr);
  */
 void lpcfi_check_ptr(char **ptr);
 
-/** Check that ptr is within the specified pointer set. n_ptrs is the
- *  size of the pointer set ptr will be checked against, and all
+/** Check that the current value of ptr is within the specified pointer set.
+ *  n_ptrs is the size of the pointer set ptr will be checked against, and all
  *  remaining arguments represent that pointer set.
  *
  *  Returns if ptr is contained within that pointer set,
  *  otherwise crashes.
  */
-void lpcfi_within(char **ptr, unsigned int n_ptrs, ...);
+void lpcfi_within(char *ptr, unsigned int n_ptrs, ...);
 
 #endif  /* LPCFI_H */
 
