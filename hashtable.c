@@ -88,3 +88,25 @@ void ht_set(hashtable ht, char **key, char *val) {
         ht->table[index] = new;
 }
 
+void ht_remove(hashtable ht, char **key) {
+        if (ht == NULL) return;
+        if (ht->table == NULL) return;
+
+        size_t index = 0;
+        struct hashnode *curr = NULL, *prev= NULL;
+
+        index = hash(key, ht->max_size);
+        curr = ht->table[index];
+        if (curr == NULL) return;
+
+        for (; curr != NULL; prev = curr, curr = curr->next) {
+                if (curr->key == key) {
+                        if (prev == NULL) ht->table[index] = curr->next;
+                        else prev->next = curr->next;
+
+                        free(curr);
+                        return;
+                }
+        }
+}
+

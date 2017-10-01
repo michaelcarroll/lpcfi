@@ -22,5 +22,8 @@ int ht_lookup(hashtable ht, char **key, char **val);
 /** Sets key to val in ht. */
 void ht_set(hashtable ht, char **key, char *val);
 
+/** Removes entry associated with key in ht. */
+void ht_remove(hashtable ht, char **key);
+
 #endif  /* HASHTABLE_H */
 
