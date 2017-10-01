@@ -13,6 +13,9 @@ void lpcfi_init(void);
 /** Frees resources used by LPCFI. */
 void lpcfi_destroy(void);
 
+/** Sets a function address to activated - that it's address has been taken. */
+void lpcfi_activate(char *ptr);
+
 /** Set ptr within safe memory to constant value val. */
 void lpcfi_set_const(char **ptr, char *val);
 

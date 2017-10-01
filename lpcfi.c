@@ -31,10 +31,12 @@ void lpcfi_destroy(void) {
         free(table);
 }
 
+void lpcfi_activate(char *ptr) {
+        ht_set(activated_addresses, (char **)ptr, (char *)ACTIV);
+}
+
 void lpcfi_set_const(char **ptr, char *val) {
         ht_set(table, ptr, val);
-        /* Activate val - it's address has been taken. */
-        //ht_set(activated_addresses, (char **)val, ACTIV);
 }
 
 void lpcfi_set_dyn(char **ptr, char **deref_ptr) {
