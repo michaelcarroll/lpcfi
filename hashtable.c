@@ -62,6 +62,29 @@ int ht_lookup(hashtable ht, char **key, char **val) {
 }
 
 void ht_set(hashtable ht, char **key, char *val) {
+        size_t index = 0;
+        struct hashnode *curr = NULL, *new = NULL;
 
+        if (ht == NULL) return;
+        if (ht->table == NULL) return;
+
+        index = hash(key, ht->max_size);
+        /* First check that the key is not in the table already. */
+        for (curr = ht->table[index]; curr != NULL; curr = curr->next) {
+                if (curr->key == key) {
+                        /* Key is already in the table. */
+                        curr->val = val;
+                        return;
+                }
+        }
+
+        /* Need a new node - key is not in the table. */
+        new = malloc(sizeof(struct hashnode));
+        if (new == NULL) return;
+        new->key = key;
+        new->val = val;
+        new->next = ht->table[index] == NULL ? NULL : ht->table[index]->next;
+
+        ht->table[index] = new;
 }
 
