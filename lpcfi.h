@@ -22,18 +22,18 @@ void lpcfi_set_const(char **ptr, char *val);
 void lpcfi_set_dyn(char **ptr, char **deref_ptr);
 
 /** Check that ptr is set to the value saved in safe memory. Returns
- *  a true value if so, otherwise returns 0.
+ *  so, otherwise crashes.
  */
-int lpcfi_check_ptr(char **ptr);
+void lpcfi_check_ptr(char **ptr);
 
 /** Check that ptr is within the specified pointer set. n_ptrs is the
  *  size of the pointer set ptr will be checked against, and all
  *  remaining arguments represent that pointer set.
  *
- *  Returns a true value if ptr is contained within that pointer set,
- *  otherwise returns 0.
+ *  Returns if ptr is contained within that pointer set,
+ *  otherwise crashes.
  */
-int lpcfi_within(char **ptr, unsigned int n_ptrs, ...);
+void lpcfi_within(char **ptr, unsigned int n_ptrs, ...);
 
 #endif  /* LPCFI_H */
 

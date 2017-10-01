@@ -16,11 +16,11 @@ void lpcfi_set_dyn(char **ptr, char **deref_ptr) {
 
 }
 
-int lpcfi_check_ptr(char **ptr) {
+void lpcfi_check_ptr(char **ptr) {
 
 }
 
-int lpcfi_within(char **ptr, unsigned int n_ptrs, ...) {
+void lpcfi_within(char **ptr, unsigned int n_ptrs, ...) {
 
 }
 
