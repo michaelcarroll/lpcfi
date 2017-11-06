@@ -39,20 +39,31 @@ void lpcfi_set_const(char **ptr, char *val) {
         ht_set(table, ptr, val);
 }
 
-void lpcfi_set_dyn(char **ptr, char **deref_ptr) {
+void lpcfi_set_dyn_safe(char **ptr, char **deref_ptr) {
         char *deref_val = NULL;
         int ret = 0;
 
         /* Retrieve what deref_ptr should be. */
         ret = ht_lookup(table, deref_ptr, &deref_val);
         if (!ret) {
-                printf("lpcfi_set_dyn: Bad call - {%p} (deref_ptr) not "
+                printf("lpcfi_set_dyn_safe: Bad call - {%p} (deref_ptr) not "
                        "in table\n", deref_ptr);
                 crash(3);
         }
 
         /* Set ptr to that value. */
         ht_set(table, ptr, deref_val);
+}
+
+void lpcfi_set_dyn(char **ptr, char *val) {
+        char *dummy = NULL;
+
+        /* Make sure val has been activated. */
+        if (!ht_lookup(activated_addresses, (char **)val, &dummy)) {
+                printf("lpcfi_set_dyn: {%p} (val) not "
+                       "activated\n", val);
+                crash(3);
+        }
 }
 
 void lpcfi_remove(char **ptr) {

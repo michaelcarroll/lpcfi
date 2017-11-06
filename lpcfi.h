@@ -22,7 +22,10 @@ void lpcfi_set_const(char **ptr, char *val);
 /** Set ptr within safe memory to point to the same value that
  *  deref_ptr does in safe memory.
  */
-void lpcfi_set_dyn(char **ptr, char **deref_ptr);
+void lpcfi_set_dyn_safe(char **ptr, char **deref_ptr);
+
+/** Set ptr within safe memory to point to the actual value val. */
+void lpcfi_set_dyn(char **ptr, char *val);
 
 /** Removes ptr from the safe memory table. */
 void lpcfi_remove(char **ptr);
