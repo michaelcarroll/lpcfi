@@ -34,12 +34,12 @@ void lpcfi_handle_load(char **ptr, char *s);
 void lpcfi_handle_store(char *r, char **fp);
 
 /** Removes fp from the fp-table. */
-void lpcfi_remove(char **ptr);
+void lpcfi_remove(char **fp);
 
 /** Checks that fp is set to the value saved in safe memory. Returns if
  *  so, otherwise crashes.
  */
-void lpcfi_check_ptr(char **fp);
+void lpcfi_check(char **fp);
 
 #endif  /* LPCFI_H */
 
