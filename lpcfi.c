@@ -66,6 +66,19 @@ void lpcfi_set_dyn(char **fp, char *s) {
         ht_set(table, fp, s);
 }
 
+void lpcfi_handle_store(char *r, char **fp) {
+        /* Retrieve what fp should be. */
+        ret = ht_lookup(table, fp, &fp_val);
+        if (!ret) {
+                printf("lpcfi_handle_store: Bad call - {%p} (fp) not "
+                       "in table\n", fq);
+                crash(3);
+        }
+
+        /* Set r to the retrieved value. */
+        ht_set(table, &r, fp_val);
+}
+
 void lpcfi_remove(char **ptr) {
         ht_remove(table, ptr);
 }
