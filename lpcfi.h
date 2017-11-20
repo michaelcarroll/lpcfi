@@ -10,39 +10,36 @@
 /** This implementation is an ADO, call at the start of main. */
 void lpcfi_init(void);
 
-/** Frees resources used by LPCFI. */
+/** Frees resources used by LPCFI. Not particularly necessary since it'd
+  * usually only be called just before main returns.
+  */
 void lpcfi_destroy(void);
 
-/** Sets a function address to activated - that it's address has been taken. */
-void lpcfi_activate(char *ptr);
+/** Set fp within safe memory to point to function func exclusively,
+  * and regard func as activated.
+  */
+void lpcfi_handle_const(char **fp, char *func);
 
-/** Set ptr within safe memory to constant value val. */
-void lpcfi_set_const(char **ptr, char *val);
+/** Sets fp in safe memory to exclusively point to whatever fq does (from
+  * safe memory).
+  */
+void lpcfi_handle_copy(char **fp, char **fq);
 
-/** Set ptr within safe memory to point to the same value that
- *  deref_ptr does in safe memory.
- */
-void lpcfi_set_dyn_safe(char **ptr, char **deref_ptr);
+/** Set fp within safe memory to point to the actual (runtime) value s. */
+void lpcfi_handle_load(char **ptr, char *s);
 
-/** Set ptr within safe memory to point to the actual value val. */
-void lpcfi_set_dyn(char **ptr, char *val);
+/** Set the actual (runtime) value r in safe memory to exclusively point
+  * to whatever fp does (in safe memory).
+  */
+void lpcfi_handle_store(char *r, char **fp);
 
-/** Removes ptr from the safe memory table. */
+/** Removes fp from the fp-table. */
 void lpcfi_remove(char **ptr);
 
-/** Check that ptr is set to the value saved in safe memory. Returns
+/** Checks that fp is set to the value saved in safe memory. Returns if
  *  so, otherwise crashes.
  */
-void lpcfi_check_ptr(char **ptr);
-
-/** Check that the current value of ptr is within the specified pointer set.
- *  n_ptrs is the size of the pointer set ptr will be checked against, and all
- *  remaining arguments represent that pointer set.
- *
- *  Returns if ptr is contained within that pointer set,
- *  otherwise crashes.
- */
-void lpcfi_within(char *ptr, unsigned int n_ptrs, ...);
+void lpcfi_check_ptr(char **fp);
 
 #endif  /* LPCFI_H */
 
