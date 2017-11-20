@@ -43,7 +43,7 @@ void lpcfi_handle_copy(char **fp, char **fq) {
         /* Retrieve what fq should be. */
         ret = ht_lookup(table, fq, &fq_val);
         if (!ret) {
-                printf("lpcfi_set_dyn_safe: Bad call - {%p} (fq) not "
+                printf("lpcfi_handle_copy: Bad call - {%p} (fq) not "
                        "in table\n", fq);
                 crash(3);
         }
@@ -52,12 +52,12 @@ void lpcfi_handle_copy(char **fp, char **fq) {
         ht_set(table, fp, fq_val);
 }
 
-void lpcfi_set_dyn(char **fp, char *s) {
+void lpcfi_handle_load(char **fp, char *s) {
         char *dummy = NULL;
 
         /* Make sure val has been activated. */
         if (!ht_lookup(activated_addresses, (char **)s, &dummy)) {
-                printf("lpcfi_set_dyn: {%p} (s) not "
+                printf("lpcfi_handle_load: {%p} (s) not "
                        "activated\n", s);
                 crash(3);
         }
@@ -92,11 +92,11 @@ void lpcfi_check(char **ptr) {
 
         ret = ht_lookup(table, ptr, &val);
         if (ret && *ptr != val) {
-                printf("lpcfi_check_ptr: Expected [%p] at {%p} but was [%p]\n",
+                printf("lpcfi_check: Expected [%p] at {%p} but was [%p]\n",
                        val, ptr, *ptr);
                 crash(2);
         } else if (!ret) {
-                printf("lpcfi_check_ptr: Bad call - {%p} not in table\n", ptr);
+                printf("lpcfi_check: Bad call - {%p} not in table\n", ptr);
                 crash(3);
         }
 
