@@ -83,7 +83,7 @@ void lpcfi_remove(char **ptr) {
         ht_remove(table, ptr);
 }
 
-void lpcfi_check_ptr(char **ptr) {
+void lpcfi_check(char **ptr) {
         char *val = NULL;
         int ret = 0;
 
