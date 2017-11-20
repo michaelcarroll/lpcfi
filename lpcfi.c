@@ -52,15 +52,18 @@ void lpcfi_handle_copy(char **fp, char **fq) {
         ht_set(table, fp, fq_val);
 }
 
-void lpcfi_set_dyn(char **ptr, char *val) {
+void lpcfi_set_dyn(char **fp, char *s) {
         char *dummy = NULL;
 
         /* Make sure val has been activated. */
-        if (!ht_lookup(activated_addresses, (char **)val, &dummy)) {
-                printf("lpcfi_set_dyn: {%p} (val) not "
-                       "activated\n", val);
+        if (!ht_lookup(activated_addresses, (char **)s, &dummy)) {
+                printf("lpcfi_set_dyn: {%p} (s) not "
+                       "activated\n", s);
                 crash(3);
         }
+
+        /* Set fp to s. */
+        ht_set(table, fp, s);
 }
 
 void lpcfi_remove(char **ptr) {
