@@ -36,20 +36,20 @@ void lpcfi_handle_const(char **fp, char *fq) {
         ht_set(table, fp, fq);
 }
 
-void lpcfi_set_dyn_safe(char **ptr, char **deref_ptr) {
-        char *deref_val = NULL;
+void lpcfi_handle_copy(char **fp, char **fq) {
+        char *fq_val = NULL;
         int ret = 0;
 
-        /* Retrieve what deref_ptr should be. */
-        ret = ht_lookup(table, deref_ptr, &deref_val);
+        /* Retrieve what fq should be. */
+        ret = ht_lookup(table, fq, &fq_val);
         if (!ret) {
-                printf("lpcfi_set_dyn_safe: Bad call - {%p} (deref_ptr) not "
-                       "in table\n", deref_ptr);
+                printf("lpcfi_set_dyn_safe: Bad call - {%p} (fq) not "
+                       "in table\n", fq);
                 crash(3);
         }
 
-        /* Set ptr to that value. */
-        ht_set(table, ptr, deref_val);
+        /* Set fp to that value. */
+        ht_set(table, fp, fq_val);
 }
 
 void lpcfi_set_dyn(char **ptr, char *val) {
