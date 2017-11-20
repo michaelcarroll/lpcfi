@@ -67,11 +67,14 @@ void lpcfi_set_dyn(char **fp, char *s) {
 }
 
 void lpcfi_handle_store(char *r, char **fp) {
+        char *fp_val = NULL;
+        int ret = 0;
+
         /* Retrieve what fp should be. */
         ret = ht_lookup(table, fp, &fp_val);
         if (!ret) {
                 printf("lpcfi_handle_store: Bad call - {%p} (fp) not "
-                       "in table\n", fq);
+                       "in table\n", fp);
                 crash(3);
         }
 
