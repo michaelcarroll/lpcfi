@@ -31,12 +31,9 @@ void lpcfi_destroy(void) {
         free(table);
 }
 
-void lpcfi_activate(char *ptr) {
-        ht_set(activated_addresses, (char **)ptr, (char *)ACTIV);
-}
-
-void lpcfi_set_const(char **ptr, char *val) {
-        ht_set(table, ptr, val);
+void lpcfi_handle_const(char **fp, char *fq) {
+        ht_set(activated_addresses, (char **)fp, (char *)ACTIV);
+        ht_set(table, fp, fq);
 }
 
 void lpcfi_set_dyn_safe(char **ptr, char **deref_ptr) {
