@@ -10,6 +10,7 @@
 
 static hashtable table;
 static hashtable activated_addresses;
+static int picfi = 0;
 
 /** Print "Crashing..." and exits with exit code code. */
 static void crash(int code) {
@@ -17,7 +18,7 @@ static void crash(int code) {
         exit(code);
 }
 
-void lpcfi_init(void) {
+void lpcfi_init(int picfi_mode) {
         table = ht_init(10);
         activated_addresses = ht_init(20);
 
@@ -25,6 +26,8 @@ void lpcfi_init(void) {
                 puts("Could not initialise.");
                 crash(1);
         }
+
+        picfi = picfi_mode;
 }
 
 void lpcfi_destroy(void) {
@@ -87,8 +90,20 @@ void lpcfi_remove(char **ptr) {
 }
 
 void lpcfi_check(char **ptr) {
-        char *val = NULL;
+        char *val = NULL, *dummy = NULL;
         int ret = 0;
+
+        if (picfi) {
+                /* We ONLY check that the address has been activated. */
+                if (!ht_lookup(activated_addresses, (char **)*ptr, &dummy)) {
+                        printf("lpcfi_check in PICFI mode: {%p} not "
+                               "activated\n", *ptr);
+                        crash(4);
+                }
+
+                /* All good. */
+                return;
+        }
 
         ret = ht_lookup(table, ptr, &val);
         if (ret && *ptr != val) {

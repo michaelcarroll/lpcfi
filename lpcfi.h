@@ -7,8 +7,11 @@
 #ifndef LPCFI_H
 #define LPCFI_H
 
-/** This implementation is an ADO, call at the start of main. */
-void lpcfi_init(void);
+/** This implementation is an ADO, call at the start of main. picfi_mode
+  * limits checks to ensuring that the address to be checked is merely
+  * activated (more coarse than PICFI, but sufficient for our demo).
+  */
+void lpcfi_init(int picfi_mode);
 
 /** Frees resources used by LPCFI. Not particularly necessary since it'd
   * usually only be called just before main returns.

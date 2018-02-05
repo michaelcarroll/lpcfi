@@ -26,7 +26,10 @@ void foo(int n) {
 }
 
 int main(void) {
-        lpcfi_init();
+        lpcfi_init(0);
+
+        printf("g at [%p]\n", &g);
+        printf("h at [%p]\n", &h);
 
         foo(1);
         foo(0);
