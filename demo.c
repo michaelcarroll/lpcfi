@@ -1,3 +1,6 @@
+/* Demo displaying a security limitation of PICFI
+ * overcome by LPCFI.
+ */
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -12,16 +15,17 @@ void h(void) { puts("Called h!"); }
 void (*fp)(void);
 void foo(int n) {
         if (n) {
-                lpcfi_handle_const((char **)&fp, (char *)&g);
+                lpcfi_assign_const((char **)&fp, (char *)&g);
                 fp = &g;
         } else {
-                lpcfi_handle_const((char **)&fp, (char *)&h);
+                lpcfi_assign_const((char **)&fp, (char *)&h);
                 fp = &h;
         }
 
         read(STDIN_FILENO, (void *)&fp, sizeof(&fp));
 
         lpcfi_check((char **)&fp);
+        printf("n = %d. ", n);
         fp();
 }
 

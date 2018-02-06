@@ -18,28 +18,28 @@ void lpcfi_init(int picfi_mode);
   */
 void lpcfi_destroy(void);
 
-/** Set fp within safe memory to point to function func exclusively,
+/** Set fp within the fp-table to point to function func exclusively,
   * and regard func as activated.
   */
-void lpcfi_handle_const(char **fp, char *func);
+void lpcfi_assign_const(char **fp, char *func);
 
-/** Sets fp in safe memory to exclusively point to whatever fq does (from
-  * safe memory).
+/** Sets fp in the fp-table to exclusively point to whatever fq does (from
+  * the fp-table).
   */
-void lpcfi_handle_copy(char **fp, char **fq);
+void lpcfi_assign_copy(char **fp, char **fq);
 
-/** Set fp within safe memory to point to the actual (runtime) value s. */
-void lpcfi_handle_load(char **ptr, char *s);
+/** Set fp within the fp-table to point to the actual (runtime) value s. */
+void lpcfi_assign_load(char **ptr, char *s);
 
-/** Set the actual (runtime) value r in safe memory to exclusively point
-  * to whatever fp does (in safe memory).
+/** Set the actual (runtime) value r in the fp-table to exclusively point
+  * to whatever fp does (in the fp-table).
   */
-void lpcfi_handle_store(char *r, char **fp);
+void lpcfi_assign_store(char *r, char **fp);
 
 /** Removes fp from the fp-table. */
 void lpcfi_remove(char **fp);
 
-/** Checks that fp is set to the value saved in safe memory. Returns if
+/** Checks that fp is set to the value saved in the fp-table. Returns if
  *  so, otherwise crashes.
  */
 void lpcfi_check(char **fp);

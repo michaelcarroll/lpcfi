@@ -34,19 +34,19 @@ void lpcfi_destroy(void) {
         free(table);
 }
 
-void lpcfi_handle_const(char **fp, char *func) {
+void lpcfi_assign_const(char **fp, char *func) {
         ht_set(activated_addresses, (char **)func, (char *)ACTIV);
         ht_set(table, fp, func);
 }
 
-void lpcfi_handle_copy(char **fp, char **fq) {
+void lpcfi_assign_copy(char **fp, char **fq) {
         char *fq_val = NULL;
         int ret = 0;
 
         /* Retrieve what fq should be. */
         ret = ht_lookup(table, fq, &fq_val);
         if (!ret) {
-                printf("lpcfi_handle_copy: Bad call - {%p} (fq) not "
+                printf("lpcfi_assign_copy: Bad call - {%p} (fq) not "
                        "in table\n", fq);
                 crash(3);
         }
@@ -55,12 +55,12 @@ void lpcfi_handle_copy(char **fp, char **fq) {
         ht_set(table, fp, fq_val);
 }
 
-void lpcfi_handle_load(char **fp, char *s) {
+void lpcfi_assign_load(char **fp, char *s) {
         char *dummy = NULL;
 
         /* Make sure val has been activated. */
         if (!ht_lookup(activated_addresses, (char **)s, &dummy)) {
-                printf("lpcfi_handle_load: {%p} (s) not "
+                printf("lpcfi_assign_load: {%p} (s) not "
                        "activated\n", s);
                 crash(3);
         }
@@ -69,14 +69,14 @@ void lpcfi_handle_load(char **fp, char *s) {
         ht_set(table, fp, s);
 }
 
-void lpcfi_handle_store(char *r, char **fp) {
+void lpcfi_assign_store(char *r, char **fp) {
         char *fp_val = NULL;
         int ret = 0;
 
         /* Retrieve what fp should be. */
         ret = ht_lookup(table, fp, &fp_val);
         if (!ret) {
-                printf("lpcfi_handle_store: Bad call - {%p} (fp) not "
+                printf("lpcfi_assign_store: Bad call - {%p} (fp) not "
                        "in table\n", fp);
                 crash(3);
         }
