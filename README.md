@@ -33,7 +33,7 @@ Simply run the `build.sh` script:
 
 2. In a shell, run:
 ```
-        python payload.py | ./demo-picfi
+        python2 payload.py | ./demo-picfi
 ```
 
 3. The addresses of some functions will appear (attacking
@@ -48,12 +48,12 @@ Simply run the `build.sh` script:
    `fp` when `foo` is called with argument `n = 0`. Enter the
    value of `g` again as before.
 
-6. Notice that PICFI allows g to be called during the second `foo`
+6. Notice that PICFI allows `g` to be called during the second `foo`
    call despite that the only legal target at that point is `h`.
 
 7. Repeat steps 3 - 5 after running
 ```
-        python payload.py | ./demo-lpcfi
+        python2 payload.py | ./demo-lpcfi
 ```
 
 8. Notice that LPCFI prevents `g` from being called during the second
