@@ -34,9 +34,9 @@ void lpcfi_destroy(void) {
         free(table);
 }
 
-void lpcfi_handle_const(char **fp, char *fq) {
-        ht_set(activated_addresses, (char **)fp, (char *)ACTIV);
-        ht_set(table, fp, fq);
+void lpcfi_handle_const(char **fp, char *func) {
+        ht_set(activated_addresses, (char **)func, (char *)ACTIV);
+        ht_set(table, fp, func);
 }
 
 void lpcfi_handle_copy(char **fp, char **fq) {
@@ -90,12 +90,12 @@ void lpcfi_remove(char **ptr) {
 }
 
 void lpcfi_check(char **ptr) {
-        char *val = NULL, *dummy = NULL;
+        char *val = NULL;
         int ret = 0;
 
         if (picfi) {
                 /* We ONLY check that the address has been activated. */
-                if (!ht_lookup(activated_addresses, (char **)*ptr, &dummy)) {
+                if (!ht_lookup(activated_addresses, (char **)*ptr, &val)) {
                         printf("lpcfi_check in PICFI mode: {%p} not "
                                "activated\n", *ptr);
                         crash(4);

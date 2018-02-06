@@ -26,10 +26,16 @@ void foo(int n) {
 }
 
 int main(void) {
-        lpcfi_init(0);
+        #ifdef PICFI
+                lpcfi_init(1);
+        #else
+                lpcfi_init(0);
+        #endif
 
-        printf("g at [%p]\n", &g);
-        printf("h at [%p]\n", &h);
+        printf("g    at [%p]\n", &g);
+        printf("h    at [%p]\n", &h);
+        printf("foo  at [%p]\n", &foo);
+        printf("main at [%p]\n", &main);
 
         foo(1);
         foo(0);
