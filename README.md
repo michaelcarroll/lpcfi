@@ -1,9 +1,8 @@
 # LPCFI demo
 
 This demo is intended to present a weakness of PICFI
-as overcome by LPCFI. An explanation of the demo is
-provided within the poster, and instructions to run
-the demo are provided below.
+as overcome by LPCFI. Instructions to run the demo
+are provided below.
 
 ## Implementation
 LPCFI is implemented naively with a basic hash table serving
@@ -19,6 +18,8 @@ The C code from the poster is available in `demo.c`.
 * C compiler (at `cc`)
 * `ar` to create a static library
 * Python 2
+  * This may be installed as `python2` or `python`; this
+    document will assume it is installed as `python2`.
 
 ## Building
 Simply run the `build.sh` script:
@@ -29,7 +30,7 @@ Simply run the `build.sh` script:
 
 ## Instructions
 1. Build the demo binaries - `demo-lpcfi` and `demo-picfi` -
-   according to the above build instructions
+   according to the above build instructions.
 
 2. In a shell, run:
 ```

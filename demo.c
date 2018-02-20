@@ -22,6 +22,7 @@ void foo(int n) {
                 fp = &h;
         }
 
+        /* VULNERABILITY: fp is overwritten from stdin. */
         read(STDIN_FILENO, (void *)&fp, sizeof(&fp));
 
         lpcfi_check((char **)&fp);
@@ -36,6 +37,7 @@ int main(void) {
                 lpcfi_init(0);
         #endif
 
+        /* Addresses of functions to overcome ASLR. */
         printf("g    at [%p]\n", &g);
         printf("h    at [%p]\n", &h);
         printf("foo  at [%p]\n", &foo);
