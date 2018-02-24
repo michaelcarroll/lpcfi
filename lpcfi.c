@@ -4,12 +4,12 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-#include "hashtable.h"
+#include "fptable.h"
 
 #define ACTIV 0xac
 
-static hashtable table;
-static hashtable activated_addresses;
+static fptable table;
+static fptable activated_addresses;
 static int picfi = 0;
 
 /** Print "Crashing..." and exits with exit code code. */
@@ -19,8 +19,8 @@ static void crash(int code) {
 }
 
 void lpcfi_init(int picfi_mode) {
-        table = ht_init(10);
-        activated_addresses = ht_init(20);
+        table = ft_init(10);
+        activated_addresses = ft_init(20);
 
         if (table == NULL || activated_addresses == NULL) {
                 puts("Could not initialise.");
@@ -35,8 +35,8 @@ void lpcfi_destroy(void) {
 }
 
 void lpcfi_assign_const(char **fp, char *func) {
-        ht_set(activated_addresses, (char **)func, (char *)ACTIV);
-        ht_set(table, fp, func);
+        ft_set(activated_addresses, (char **)func, (char *)ACTIV);
+        ft_set(table, fp, func);
 }
 
 void lpcfi_assign_copy(char **fp, char **fq) {
@@ -44,7 +44,7 @@ void lpcfi_assign_copy(char **fp, char **fq) {
         int ret = 0;
 
         /* Retrieve what fq should be. */
-        ret = ht_lookup(table, fq, &fq_val);
+        ret = ft_lookup(table, fq, &fq_val);
         if (!ret) {
                 printf("lpcfi_assign_copy: Bad call - {%p} (fq) not "
                        "in table\n", fq);
@@ -52,21 +52,21 @@ void lpcfi_assign_copy(char **fp, char **fq) {
         }
 
         /* Set fp to that value. */
-        ht_set(table, fp, fq_val);
+        ft_set(table, fp, fq_val);
 }
 
 void lpcfi_assign_load(char **fp, char *s) {
         char *dummy = NULL;
 
         /* Make sure val has been activated. */
-        if (!ht_lookup(activated_addresses, (char **)s, &dummy)) {
+        if (!ft_lookup(activated_addresses, (char **)s, &dummy)) {
                 printf("lpcfi_assign_load: {%p} (s) not "
                        "activated\n", s);
                 crash(3);
         }
 
         /* Set fp to s. */
-        ht_set(table, fp, s);
+        ft_set(table, fp, s);
 }
 
 void lpcfi_assign_store(char *r, char **fp) {
@@ -74,7 +74,7 @@ void lpcfi_assign_store(char *r, char **fp) {
         int ret = 0;
 
         /* Retrieve what fp should be. */
-        ret = ht_lookup(table, fp, &fp_val);
+        ret = ft_lookup(table, fp, &fp_val);
         if (!ret) {
                 printf("lpcfi_assign_store: Bad call - {%p} (fp) not "
                        "in table\n", fp);
@@ -82,11 +82,11 @@ void lpcfi_assign_store(char *r, char **fp) {
         }
 
         /* Set r to the retrieved value. */
-        ht_set(table, &r, fp_val);
+        ft_set(table, &r, fp_val);
 }
 
 void lpcfi_remove(char **ptr) {
-        ht_remove(table, ptr);
+        ft_remove(table, ptr);
 }
 
 void lpcfi_check(char **ptr) {
@@ -95,7 +95,7 @@ void lpcfi_check(char **ptr) {
 
         if (picfi) {
                 /* We ONLY check that the address has been activated. */
-                if (!ht_lookup(activated_addresses, (char **)*ptr, &val)) {
+                if (!ft_lookup(activated_addresses, (char **)*ptr, &val)) {
                         printf("lpcfi_check in PICFI mode: {%p} not "
                                "activated\n", *ptr);
                         crash(4);
@@ -105,7 +105,7 @@ void lpcfi_check(char **ptr) {
                 return;
         }
 
-        ret = ht_lookup(table, ptr, &val);
+        ret = ft_lookup(table, ptr, &val);
         if (ret && *ptr != val) {
                 printf("lpcfi_check: Expected [%p] at {%p} but was [%p]\n",
                        val, ptr, *ptr);

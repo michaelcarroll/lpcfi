@@ -1,9 +1,9 @@
-/** hashtable.c - implementation of interface in hashtable.h. */
+/** fptable.c - implementation of interface in fptable.h. */
 
 #include <stdlib.h>
 #include <stdbool.h>
 
-#include "hashtable.h"
+#include "fptable.h"
 
 struct hashnode {
         char **key;
@@ -11,30 +11,30 @@ struct hashnode {
         struct hashnode *next;
 };
 
-struct hashtable {
+struct fptable {
         size_t max_size;  /** Number of slots in the table. */
         // size_t n_keys;    /** Number of keys currently in the table. */
         struct hashnode **table;  /** Array of hashnodes. */
 };
 
-hashtable ht_init(size_t size) {
-        hashtable ht = malloc(sizeof(struct hashtable));
-        if (ht == NULL) return NULL;
+fptable ft_init(size_t size) {
+        fptable ft = malloc(sizeof(struct fptable));
+        if (ft == NULL) return NULL;
 
-        ht->max_size = size;
-        ht->table = calloc(size, sizeof(struct hashnode *));
-        if (ht->table == NULL) {
-                free(ht);
+        ft->max_size = size;
+        ft->table = calloc(size, sizeof(struct hashnode *));
+        if (ft->table == NULL) {
+                free(ft);
                 return NULL;
         }
 
-        return ht;
+        return ft;
 }
 
-void ht_destroy(hashtable ht) {
-        if (ht == NULL) return;
-        free(ht->table);
-        free(ht);
+void ft_destroy(fptable ft) {
+        if (ft == NULL) return;
+        free(ft->table);
+        free(ft);
 }
 
 static size_t hash(char **key, size_t size) {
@@ -42,15 +42,15 @@ static size_t hash(char **key, size_t size) {
         return (size_t)key % size;
 }
 
-int ht_lookup(hashtable ht, char **key, char **val) {
+int ft_lookup(fptable ft, char **key, char **val) {
         size_t index = 0;
         struct hashnode *curr = NULL;
 
-        if (ht == NULL) return 0;
-        if (ht->table == NULL) return 0;
+        if (ft == NULL) return 0;
+        if (ft->table == NULL) return 0;
 
-        index = hash(key, ht->max_size);
-        for (curr = ht->table[index]; curr != NULL; curr = curr->next) {
+        index = hash(key, ft->max_size);
+        for (curr = ft->table[index]; curr != NULL; curr = curr->next) {
                 if (curr->key == key) {
                         /* There's a match. */
                         *val = curr->val;
@@ -62,16 +62,16 @@ int ht_lookup(hashtable ht, char **key, char **val) {
         return false;
 }
 
-void ht_set(hashtable ht, char **key, char *val) {
+void ft_set(fptable ft, char **key, char *val) {
         size_t index = 0;
         struct hashnode *curr = NULL, *new = NULL;
 
-        if (ht == NULL) return;
-        if (ht->table == NULL) return;
+        if (ft == NULL) return;
+        if (ft->table == NULL) return;
 
-        index = hash(key, ht->max_size);
+        index = hash(key, ft->max_size);
         /* First check that the key is not in the table already. */
-        for (curr = ht->table[index]; curr != NULL; curr = curr->next) {
+        for (curr = ft->table[index]; curr != NULL; curr = curr->next) {
                 if (curr->key == key) {
                         /* Key is already in the table. */
                         curr->val = val;
@@ -84,25 +84,25 @@ void ht_set(hashtable ht, char **key, char *val) {
         if (new == NULL) return;
         new->key = key;
         new->val = val;
-        new->next = ht->table[index] == NULL ? NULL : ht->table[index]->next;
+        new->next = ft->table[index] == NULL ? NULL : ft->table[index]->next;
 
-        ht->table[index] = new;
+        ft->table[index] = new;
 }
 
-void ht_remove(hashtable ht, char **key) {
-        if (ht == NULL) return;
-        if (ht->table == NULL) return;
+void ft_remove(fptable ft, char **key) {
+        if (ft == NULL) return;
+        if (ft->table == NULL) return;
 
         size_t index = 0;
         struct hashnode *curr = NULL, *prev= NULL;
 
-        index = hash(key, ht->max_size);
-        curr = ht->table[index];
+        index = hash(key, ft->max_size);
+        curr = ft->table[index];
         if (curr == NULL) return;
 
         for (; curr != NULL; prev = curr, curr = curr->next) {
                 if (curr->key == key) {
-                        if (prev == NULL) ht->table[index] = curr->next;
+                        if (prev == NULL) ft->table[index] = curr->next;
                         else prev->next = curr->next;
 
                         free(curr);
