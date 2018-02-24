@@ -41,12 +41,12 @@ int main(void) {
                         break;
                 } else if (strcmp(password, "secret") == 0) {
                         puts("Password entered CORRECTLY");
-                        op = priv;
                         lpcfi_assign_copy((char **)&op, (char **)&priv);
+                        op = priv;
                 } else {
                         puts("Password entered INCORRECTLY");
-                        op = nopriv;
                         lpcfi_assign_copy((char **)&op, (char **)&nopriv);
+                        op = nopriv;
                 }
 
                 /* VULNERABILITY: op is overwritten from stdin. */
