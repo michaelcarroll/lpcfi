@@ -84,7 +84,7 @@ void ft_set(fptable ft, char **key, char *val) {
         if (new == NULL) return;
         new->key = key;
         new->val = val;
-        new->next = ft->table[index] == NULL ? NULL : ft->table[index]->next;
+        new->next = ft->table[index] == NULL ? NULL : ft->table[index];
 
         ft->table[index] = new;
 }
