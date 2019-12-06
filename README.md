@@ -1,7 +1,7 @@
-# Live Path Control Flow Integrity (LPCFI) demonstration
+# LPCFI/PICFI demonstration
 
-This demo is intended to present a weakness of PICFI
-as overcome by LPCFI for our presentation on Control Flow Integrity for CSCI-340. Instructions to run the demo
+This demo is intended to present a weakness of Per-Input Control Flow Integrity (PICFI)
+as overcome by Live Path Control Flow Integrity (LPCFI) for our presentation on Control Flow Integrity for CSCI-340. Instructions to run the demo
 are provided below.
 
 Forked from https://github.com/mbarbar/lpcfi.
