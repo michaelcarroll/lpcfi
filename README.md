@@ -16,15 +16,27 @@ This is more coarse than PICFI, but irrelevant for this demo.
 The C code from the poster is available in `demo.c`.
 
 ## Dependencies
-* Unix-like system
+* Unix system
 * C compiler (at `cc`)
-* `ar` to create a static library
 * Python 2
   * This may be installed as `python2` or `python`; this
     document will assume it is installed as `python2`.
+    
+## Cloning Repository
+Clone the repository by running this command in the terminal:
+
+```
+        git clone github.com/michaelcarroll/lpcfi
+```
 
 ## Building
-Simply run the `build.sh` script:
+Change the directory to the cloned repository
+
+```
+        cd lpcfi
+```
+
+Run the `build.sh` script:
 
 ```
     sh buid.sh
