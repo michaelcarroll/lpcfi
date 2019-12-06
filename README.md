@@ -11,9 +11,7 @@ LPCFI is implemented naively with a basic hash table serving
 as the fp-table. PICFI is not implemented but simulated. If
 a function address has been activated, the PICFI simulation
 regards such function as a legal target for any indirect call.
-This is more coarse than PICFI, but irrelevant for this demo.
 
-The C code from the poster is available in `demo.c`.
 
 ## Dependencies 
 * Unix system (The CSB/SJU Linux Student Pool will work)
