@@ -22,16 +22,16 @@ The C code from the poster is available in `demo.c`.
   * This may be installed as `python2` or `python`; this
     document will assume it is installed as `python2`.
     
-## Log into VMware Horizon
+## 1. Log into VMware Horizon
     
-## Cloning Repository
+## 2. Clone Repository
 Clone the repository by running this command in the terminal:
 
 ```
     git clone github.com/michaelcarroll/lpcfi
 ```
 
-## Building
+## 3. Build
 Change the directory to the cloned repository:
 
 ```
@@ -44,7 +44,7 @@ Run the `build.sh` script:
     sh buid.sh
 ```
 
-## Demonstration of Per-input Control Flow Integrity (PICFI)
+## 4. Demonstration of Per-input Control Flow Integrity (PICFI)
 1. In the terminal, run:
 ```
     python2 payload.py | ./demo-picfi
@@ -65,7 +65,7 @@ Run the `build.sh` script:
 4. Notice that PICFI allows `g` to be called during the second `foo`
    call despite that the only legal target at that point is `h`.
 
-## Demonstration of Live Path Control Flow Integrity (LPCFI)
+## 5. Demonstration of Live Path Control Flow Integrity (LPCFI)
 1. In the terminal, run:
 ```
     python2 payload.py | ./demo-lpcfi
