@@ -28,7 +28,7 @@ The C code from the poster is available in `demo.c`.
 Clone the repository by running this command in the terminal:
 
 ```
-    git clone github.com/michaelcarroll/lpcfi
+    https://github.com/michaelcarroll/lpcfi
 ```
 
 ## 3. Build
