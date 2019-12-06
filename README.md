@@ -39,7 +39,7 @@ cd lpcfi
 Run the `build.sh` script:
 
 ```
-sh buid.sh
+sh build.sh
 ```
 
 ## 4. Demonstration of Per-input Control Flow Integrity (PICFI)
