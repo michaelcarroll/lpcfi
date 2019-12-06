@@ -28,14 +28,14 @@ The C code from the poster is available in `demo.c`.
 Clone the repository by running this command in the terminal:
 
 ```
-        git clone github.com/michaelcarroll/lpcfi
+    git clone github.com/michaelcarroll/lpcfi
 ```
 
 ## Building
 Change the directory to the cloned repository:
 
 ```
-        cd lpcfi
+    cd lpcfi
 ```
 
 Run the `build.sh` script:
@@ -47,7 +47,7 @@ Run the `build.sh` script:
 ## Demonstration of Per-input Control Flow Integrity (PICFI)
 1. In the terminal, run:
 ```
-        python2 payload.py | ./demo-picfi
+    python2 payload.py | ./demo-picfi
 ```
 
    A prompt will appear asking for the desired value of
@@ -68,7 +68,7 @@ Run the `build.sh` script:
 ## Demonstration of Live Path Control Flow Integrity (LPCFI)
 1. In the terminal, run:
 ```
-        python2 payload.py | ./demo-lpcfi
+    python2 payload.py | ./demo-lpcfi
 ```
 
    A prompt will appear asking for the desired value of
